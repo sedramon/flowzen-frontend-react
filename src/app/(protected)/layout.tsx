@@ -5,6 +5,7 @@ import Link from 'next/link';
 import '../../styles/globals.css';
 import ProtectedLayout from '@/components/ProtectedLayout';
 import { useAuth } from '@/contexts/AuthContext';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
 
 
@@ -17,23 +18,51 @@ export default function ProtectedAppLayout({
 
   return (
 
-          <ProtectedLayout>
-            <nav style={{ padding: '1rem', borderBottom: '1px solid #ddd' }}>
-              <Link href="/home" style={{ marginRight: '1rem' }}>
-                Home
-              </Link>
-              <Link href="/user-administration">User Administration</Link>
-              {user && (
+    <ProtectedLayout>
+      <AppBar position="static" color="primary">
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              component={Link}
+              href="/home"
+              color="inherit"
+              sx={{ textTransform: 'none', mr: 2 }}
+            >
+              Home
+            </Button>
+            <Button
+              component={Link}
+              href="/user-administration"
+              color="inherit"
+              sx={{ textTransform: 'none' }}
+            >
+              User Administration
+            </Button>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {user && (
               <>
-                <span style={{ marginRight: '1rem' }}>Welcome, {user.username}</span>
-                <button onClick={logout} style={{ padding: '0.5rem 1rem' }}>
+                <Typography variant="body1" sx={{ mr: 2 }}>
+                  Welcome, {user.username}
+                </Typography>
+                <Button
+                  color="inherit"
+                  variant="outlined"
+                  onClick={logout}
+                  sx={{ textTransform: 'none' }}
+                >
                   Logout
-                </button>
+                </Button>
               </>
             )}
-            </nav>
-            {children}
-          </ProtectedLayout>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box component="main" sx={{ p: 2 }}>
+        {children}
+      </Box>
+
+    </ProtectedLayout>
 
   );
 }

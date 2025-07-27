@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import '../styles/globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from '@/lib/theme';
+import ClientProviders from '@/components/ClientProviders';
 
-export const metadata: Metadata = {
-  title: 'Flowzen',
-};
+
 
 export default function PublicLayout({
   children,
@@ -14,9 +15,9 @@ export default function PublicLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
+        <ClientProviders>
           {children}
-        </AuthProvider>
+        </ClientProviders>
       </body>
     </html>
   );
